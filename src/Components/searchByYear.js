@@ -10,16 +10,20 @@ class SearchByYear extends Component {
         this.nextID            = this.nextID.bind(this);
         this.getCompetitors    = this.getCompetitors.bind(this);
         this.handleYearChange  = this.handleYearChange.bind(this);
+        this.handleNameChange  = this.handleNameChange.bind(this);
         this.state             = {
             year: null,
+            competitor: null,
             olympicCompetitors : [] }
     }
 
     getCompetitors(e){
         e.preventDefault();
         var self = this;
-        let paramsInBody = [`year=${self.state.year}`];
+        let paramsInBody = [`year=${self.state.year}&competitor=${self.state.competitor}`];
         console.log(self.state.year)
+        console.log(self.state.competitor)
+        console.log(paramsInBody)
         const url = `https://olympic-live-game.herokuapp.com/getCruiseByYearCompetitor`;
         self.setState({olympicCompetitors: []});
 
@@ -53,6 +57,11 @@ class SearchByYear extends Component {
                     <label className = "SearchLabel">
                         Year:
                         <input required type = "text" name = "year" onChange = {self.handleYearChange}/>
+                    </label>
+
+                    <label className = "SearchLabel">
+                        Name:
+                        <input required type = "text" name = "Name" onChange = {self.handleNameChange}/>
                     </label>
 
                     <button type = "submit" className = "btn btn-primary card-button"><MdSearch/></button>
@@ -117,6 +126,12 @@ class SearchByYear extends Component {
     handleYearChange(e){
         this.setState({
             year: e.target.value
+        })
+    }
+
+    handleNameChange(e){
+        this.setState({
+            competitor: e.target.value
         })
     }
     
